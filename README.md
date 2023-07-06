@@ -12,6 +12,8 @@ password=password123
 port=5432
 ```
 
+After you added that file you can start the server with 'python app.py' and access the webApp through 'localhost:5000' in your browser
+
 I am not sure if the .venv and all works as it should? If it doesn't I'm sure you can figure out what to install by the error messages...
 
 
