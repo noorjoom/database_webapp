@@ -1,5 +1,20 @@
 # Database_WebApp
 
+## READ THIS TO USE
+
+After you clone the repository you need to create an 'database.ini' file where you write down all the necessary info to access your postgresql-database with following form:
+```
+[postgresql]
+host=localhost
+database=postgres
+user=postgres
+password=password123
+port=5432
+```
+
+After you added that file you can start the server with 'python app.py' and access the webApp through 'localhost:5000' in your browser
+
+I am not sure if the .venv and all works as it should? If it doesn't I'm sure you can figure out what to install by the error messages...
 
 
 ## Getting started
