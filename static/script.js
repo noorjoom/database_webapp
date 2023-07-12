@@ -201,7 +201,7 @@ $(function () {
     function get_filter_data() {
         var filter = JSON.parse(JSON.stringify(filter_preset));
         filter["print"] = true;
-        filter["table"] = ["districts", "plr", "fahrrad_diebstahl"]
+        filter["table"] = ["districts", "planningareas", "bicyclethefts"]
         if ($("#select_district").val() != 0) {
             filter["district_id"] = $("#select_district").val();
         }
@@ -238,7 +238,7 @@ $(function () {
         $("#select_plr").empty();
         $("#select_plr").append($("<option></option>").val(0).html("---ALL---"));
         var filter = JSON.parse(JSON.stringify(filter_preset));
-        filter["table"] = ["plr"];
+        filter["table"] = ["planningareas"];
         filter["column"] = "plr_name"
         filter["district_id"] = d_id;
         get_data_from_db(filter, populate_plr_selection);
@@ -247,7 +247,7 @@ $(function () {
     //Only called at beginning to set the options for the district selection
     function populate_district_selection(result) {
         for (var i = 0; i < result.length; i++) {
-            $("#select_district").append($("<option></option>").val(result[i][1]).html(result[i][0]));
+            $("#select_district").append($("<option></option>").val(result[i][0]).html(result[i][1]));
         }
     }
 

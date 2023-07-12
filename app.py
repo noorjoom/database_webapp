@@ -1,6 +1,9 @@
 from flask import Flask,render_template, request, jsonify
 import psycopg2
 from config import config
+import locale
+
+locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
   
 app = Flask(__name__,template_folder="templates")
   
@@ -18,32 +21,32 @@ def get_query(data):
     #return both data and count
     ret_json = {}
     query_data_head = "SELECT {} from ".format(data["column"])
-    query_count_head = "SELECT COUNT(plr.plr_id), plr.plr_id from "
+    query_count_head = "SELECT COUNT(plr_id), plr_id from "
     query_string = ""
-    query_count_tail = " GROUP BY plr.plr_id"
+    query_count_tail = " GROUP BY plr_id"
     #JOIN TABLES IF NECESSARY
     if len(data["table"]) == 1:
         query_string += str(data["table"][0]) + " WHERE 1=1"
     elif len(data["table"]) == 2:
         if data["table"][0] == "districts" or  data["table"][1] == "districts":
-            query_string += " districts JOIN plr ON districts.district_id = plr.district_id WHERE 1=1"
-        elif data["table"][0] == "fahrrad_diebstahl" or data["table"][0] == "fahrrad_diebstahl":
-            query_string += " plr JOIN fahrrad_diebstahl ON plr.plr_id = fahrrad_diebstahl.plr_id WHERE 1=1"
+            query_string += " districts JOIN planningareas ON districts.gemeinde_schluessel = planningareas.bez WHERE 1=1"
+        elif data["table"][0] == "bicyclethefts" or data["table"][1] == "bicyclethefts":
+            query_string += " planningareas JOIN bicyclethefts ON planningareas.plr_id = bicyclethefts.lor WHERE 1=1"
         else:
             raise Exception("Invalid Input from Client!")
     elif len(data["table"]) == 3:
-        query_string += "districts JOIN plr ON districts.district_id = plr.district_id JOIN fahrrad_diebstahl ON plr.plr_id = fahrrad_diebstahl.plr_id WHERE 1=1"
+        query_string += "districts JOIN planningareas ON districts.gemeinde_schluessel = planningareas.bez JOIN bicyclethefts ON planningareas.plr_id = bicyclethefts.lor WHERE 1=1"
     else:
         raise Exception("Invalid Input from Client!")
 
     #Add Where Clauses
     if data["district_id"] != 0:
-        if len(data["table"]) == 1:
-            query_string += " AND district_id = " + str(data["district_id"])
+        if data["table"] == "districts":
+            query_string += " AND gemeinde_schluessel = " + str(data["district_id"])
         else:
-            query_string += " AND plr.district_id = " + str(data["district_id"])
+            query_string += " AND planningareas.bez = " + str(data["district_id"])
     if data["district_name"] != "":
-        query_string += " AND district_name = \'{}\'".format(data["district_name"])
+        query_string += " AND gemeinde_name = \'{}\'".format(data["district_name"])
     if data["plr_id"] != "":
         query_string += " AND plr_id = \'{}\'".format(data["plr_id"])
     if data["plr_name"] != "":
