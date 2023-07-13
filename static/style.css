@@ -1,15 +1,41 @@
 body {
-    background-color: #f55d5d;
-    font-family: Arial, sans-serif;
+    background-color: #4888a1;
+    font-family: 'Kanit', sans-serif;
   }
   
-  h1 {
-    color: #333;
+  
+  .adjustment {
+    border-radius: 25px;
+    margin: auto;
+    width: 60%;
+    height: 250px;
+    border: 1px solid rgb(78, 13, 13);
+    padding: 20px;
+    background-color: #ac4066;
+  }
+ 
+  .dropdown {
+    position: relative;
+    display: inline-block;
   }
   
-  .container {
-    margin: 20px;
+
+  .header {
+    padding: 20px;
+    text-align: center;
+    background: #021036;
+    color: rgb(97, 21, 0);
+    font-size: 20px;
   }
-  
-  /* Weitere Styling-Anweisungen */
-  
+
+  th {
+    background-color: #042b80;
+    color: white;
+  }
+
+  tr:hover {background-color: coral;}
+
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }

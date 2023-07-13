@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>JavaScript to Python Example</title>
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <div id="filter_elements">
+    <div class="header">
+        <h1>Fahrraddiebstähle in Berlin</h1>
+        <p>Detallierte Informationen finden Sie hier</p>
+    </div>
+
+    <hr style="border-color: black;">
+    <br>
+
+    <div class="adjustment" id="filter_elements">
         <div id="location_filter">
             <select id="select_district">
                 <option value="0">---ALL---</option>
@@ -16,12 +29,14 @@
             </select>
             <br>
         </div>
+        <br>
         <div id="date_filter">
             <label for="set_start_date">From:</label>
             <input type="date" id="set_start_date" name="set_start_date" min="2022-01-01" max="2023-06-09">
             <label for="set_end_date">To:</label>
             <input type="date" id="set_end_date" name="set_end_date" min="2022-01-01" max="2023-06-09">
         </div>
+        <br>
         <!---div id="time_filter">
             <label for="set_start_date">Select a start time:</label>
             <input type="number" id="set_start_time" name="set_start_time" min="0" max="23">
@@ -29,6 +44,7 @@
             <input type="number" id="set_end_time" name="set_end_time" min="0" max="23">
         </div--->
         <div id="bike_type_filter">
+            <label for="bike_type_filter">Type:</label>
             <select id="select_bike_type">
                 <option value="0">---ALL---</option>
                 <option value="Fahrrad">Fahrrad</option>
@@ -41,33 +57,42 @@
                 <option value="diverse Fahrräder">diverse Fahrräder</option>               
             </select>
         </div>
+        <br>
         <div id="damage_filter">
             <label for="set_min_damage">Damage from:</label>
             <input type="number" id="set_min_damage" name="set_min_damage" min="0">
+            <br>
+            <br>
             <label for="set_max_damage">Damage to:</label>
             <input type="number" id="set_max_damage" name="set_max_damage" min="0">
         </div>
+        <br>
         <div id="filter_buttons">
             <button id="reset_button" type="button">Reset Filters</button>
             <button id="apply_filter_button" type="button">Apply Filters</button>
             <button disabled id="reset_map" type="button">Reset Map</button>
         </div>
     </div>
+    <br>
+    <hr style="border-color: black;">
     <div id="div_table">
-        <table id ="result_table">
+        <table class="center" id ="result_table">
             <tr>
                 <th>Bezirk-Name</th>
                 <th>Bezirk-Größe</th>
                 <th>PLR-Name</th>
                 <th>Art-des-Fahrrads</th>
                 <th>Schadenshöhe</th>
-                <th>Tat-Datum-Anfang</th>
+                <!--<th>Tat-Datum-Anfang</th>-->
                 <th>Tat-Zeit-Anfang</th>
                 <th>Tat-Datum-Ende</th>
                 <th>Tat-Zeit-Ende</th>
             </tr>
         </table>
+        <hr style="border-color: black;">
     </div>
+    <br>
+
     <div id="map_elements">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="800" height="660" viewBox="0 0 800 660" stroke-linecap="round" stroke-linejoin="round">
             <g class="svg_map_paths" id="lor_planungsraeume_2021">
