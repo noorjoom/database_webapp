@@ -70,6 +70,8 @@ def get_query(data):
             query_string += " AND schadenshoehe >= " + str(data["min_dmg"])
         if data["max_dmg"] != "":
             query_string += " AND schadenshoehe <= " + str(data["max_dmg"])
+        if data["bike_type"] != "":
+            query_string += " AND art_des_fahrrads = \'{}\'".format(data["bike_type"])
 
     print(query_string)
 

@@ -21,11 +21,24 @@
             <label for="set_end_date">To:</label>
             <input type="date" id="set_end_date" name="set_end_date" min="2022-01-01" max="2023-06-09">
         </div>
-        <div id="time_filter">
+        <!---div id="time_filter">
             <label for="set_start_date">Select a start time:</label>
             <input type="number" id="set_start_time" name="set_start_time" min="0" max="23">
             <label for="set_end_date">Select an end time:</label>
             <input type="number" id="set_end_time" name="set_end_time" min="0" max="23">
+        </div--->
+        <div id="bike_type_filter">
+            <select id="select_bike_type">
+                <option value="0">---ALL---</option>
+                <option value="Fahrrad">Fahrrad</option>
+                <option value="Herrenfahrrad">Herrenfahrrad</option>
+                <option value="Damenfahrrad">Damenfahrrad</option>
+                <option value="Kinderfahrrad">Kinderfahrrad</option>
+                <option value="Lastenfahrrad">Lastenfahrrad</option>
+                <option value="Mountainbike">Mountainbike</option>
+                <option value="Rennrad">Rennrad</option>
+                <option value="diverse Fahrräder">diverse Fahrräder</option>               
+            </select>
         </div>
         <div id="damage_filter">
             <label for="set_min_damage">Damage from:</label>
