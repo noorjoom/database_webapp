@@ -328,7 +328,7 @@ $(function () {
             .then(result => {
                 if (filter["print"]) {
                     show_data_in_table(result["data"]);
-                    //color_map(result["count"]);
+                    color_map(result["count"]);
                 } else {
                     callback(result["data"]);
                 }
