@@ -35,7 +35,6 @@ $(function () {
             }
             $(all_paths[i]).stlye.opacity = 0.4;
         }
-        
     });
 
     //If a start Date gets selected
@@ -314,7 +313,8 @@ $(function () {
         var filter = JSON.parse(JSON.stringify(filter_preset));
         filter["table"] = ["planningareas"];
         filter["column"] = "plr_name"
-        filter["district_id"] = d_id;
+        if(d_id != 0)
+            filter["district_id"] = d_id;
         get_data_from_db(filter, populate_plr_selection);
     }
 
