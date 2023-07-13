@@ -2,6 +2,10 @@ const data = { "d_id": 1 };
 const filter_preset = { "print": false, "table": [], "column": "*", "district_id": 0, "district_name": "", "plr_id": "", "plr_name": "", "start_date": "", "end_date": "", "start_time": "", "end_time": "", "min_dmg": 0, "max_dmg": 1 };
 const printVal = [1, 4, 3, 8, 9, 10, 11, 12, 13]
 
+$.fn.isValid = function(){
+    return this[0].checkValidity()
+};
+
 $(function () {
     var all_paths = $("path");
     var show_plr = false;
@@ -37,6 +41,31 @@ $(function () {
         $("#set_start_date").attr("max", $(this).val());
     });
 
+    //If a minimum damage value gets set
+    $("#set_min_damage").change(function () {
+        //check if value is valid
+        if(!($("#set_min_damage").isValid())){
+            $(this).val("").change();
+            $(this).css("background-color", "#E30B5C");
+        }else{
+            $(this).css("background-color", "#fff");
+        }
+        //set min value of max Damage to this value
+        $("#set_max_damage").attr("min", $(this).val());
+    });
+
+    //If a maximum damage value gets set
+    $("#set_max_damage").change(function () {
+        //check if value is valid
+        if(!($("#set_max_damage").isValid())){
+            $(this).val("").change();
+            $(this).css("background-color", "#E30B5C");
+        }else{
+            $(this).css("background-color", "#fff");
+        }
+        //set mix value of min Damage to this value
+        $("#set_min_damage").attr("max", $(this).val());
+    });
 
     //click on district
     $("path").click(function () {
