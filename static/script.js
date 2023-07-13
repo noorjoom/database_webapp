@@ -1,6 +1,6 @@
 const data = { "d_id": 1 };
 const filter_preset = { "print": false, "table": [], "column": "*", "district_id": 0, "district_name": "", "plr_id": "", "plr_name": "", "start_date": "", "end_date": "", "start_time": "", "end_time": "", "min_dmg": 0, "max_dmg": 1 };
-const printVal = [0, 3, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16]
+const printVal = [1, 4, 3, 8, 9, 10, 11, 12, 13]
 
 $(function () {
     var all_paths = $("path");
@@ -285,8 +285,8 @@ $(function () {
             .then(response => response.json())
             .then(result => {
                 if (filter["print"]) {
-                    //show_data_in_table(result["data"]);
-                    color_map(result["count"]);
+                    show_data_in_table(result["data"]);
+                    //color_map(result["count"]);
                 } else {
                     callback(result["data"]);
                 }
