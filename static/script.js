@@ -192,7 +192,11 @@ $(function () {
         for (var i = 0; i < data.length; i++) {
             var append_string = "<tr>"
             for (var j = 0; j < printVal.length; j++) {
-                append_string += "<td>" + data[i][printVal[j]] + "</td>"
+                if(printVal[j] == 10 || printVal[j] == 12){
+                    append_string += "<td>" + new Date(data[i][printVal[j]]).toISOString().split("T")[0] + "</td>"
+                }else{
+                    append_string += "<td>" + data[i][printVal[j]] + "</td>"
+                }              
             }
             $("#result_table").append(append_string + "</tr>");
         }
