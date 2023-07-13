@@ -3,7 +3,7 @@ from psycopg2 import sql
 from config import config
 
 # Connect to your postgres DB
-#conn = psycopg2.connect("dbname= user= password= ")
+conn = psycopg2.connect("dbname=db_test user=postgres password=161100")
 
 #Connect to your postgres DB with config file (database.ini)
 params = config()
