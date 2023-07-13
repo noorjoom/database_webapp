@@ -1,5 +1,5 @@
 const data = { "d_id": 1 };
-const filter_preset = { "print": false, "table": [], "column": "*", "district_id": 0, "district_name": "", "plr_id": "", "plr_name": "", "start_date": "", "end_date": "", "start_time": "", "end_time": "", "min_dmg": 0, "max_dmg": 1 };
+const filter_preset = { "print": false, "table": [], "column": "*", "district_id": 0, "district_name": "", "plr_id": "", "plr_name": "", "start_date": "", "end_date": "", "min_dmg": 0, "max_dmg": 1, "bike_type": ""};
 const printVal = [1, 4, 3, 8, 9, 10, 11, 12, 13]
 
 $.fn.isValid = function(){
@@ -161,6 +161,7 @@ $(function () {
     $("#reset_button").click(function () {
         $("#select_district").val(0);
         $("#select_plr").val(0);
+        $("#select_bike_type").val(0);
         change_plr_selection(0);
         $("#set_start_date").val("");
         $("#set_end_date").val("");
@@ -246,10 +247,11 @@ $(function () {
         if ($("#select_plr").val() != 0) {
             filter["plr_name"] = $("#select_plr").val();
         }
+        if ($("#select_bike_type").val() != 0){
+            filter["bike_type"] = $("#select_bike_type").val();
+        }
         filter["start_date"] = $("#set_start_date").val();
         filter["end_date"] = $("#set_end_date").val();
-        filter["start_time"] = $("#set_start_time").val();
-        filter["end_time"] = $("#set_end_time").val();
         filter["min_dmg"] = $("#set_min_damage").val();
         filter["max_dmg"] = $("#set_max_damage").val();
         return filter;
