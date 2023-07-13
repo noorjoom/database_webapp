@@ -25,8 +25,16 @@ $(function () {
     });
 
     //wait for plr selection
-    $("#select_plr").change(function () {     
+    $("#select_plr").change(function () {
+        var index;     
         //change map
+        for(var i = 0; i < all_paths.length; i++){
+            if($(all_paths[i]).attr("data-plr_name") == $(this).val()){
+                alert($(this).val());
+                index = i;
+            }
+            $(all_paths[i]).stlye.opacity = 0.4;
+        }
     });
 
     //If a start Date gets selected
@@ -192,7 +200,11 @@ $(function () {
         for (var i = 0; i < data.length; i++) {
             var append_string = "<tr>"
             for (var j = 0; j < printVal.length; j++) {
-                append_string += "<td>" + data[i][printVal[j]] + "</td>"
+                if(printVal[j] == 10 || printVal[j] == 12){
+                    append_string += "<td>" + new Date(data[i][printVal[j]]).toISOString().split("T")[0] + "</td>"
+                }else{
+                    append_string += "<td>" + data[i][printVal[j]] + "</td>"
+                }              
             }
             $("#result_table").append(append_string + "</tr>");
         }
@@ -254,6 +266,7 @@ $(function () {
         filter["end_date"] = $("#set_end_date").val();
         filter["min_dmg"] = $("#set_min_damage").val();
         filter["max_dmg"] = $("#set_max_damage").val();
+        filter["count_bike_thefts"] = true; //Added for count
         return filter;
     }
 
@@ -289,6 +302,10 @@ $(function () {
         show_plr = false;
     }
 
+    function display_bike_theft_count(count) {
+        document.getElementById('bike-theft-count').textContent = 'Count of bike thefts: ' + count;
+    }
+
     //Get the valuesfor the plr select accoring to set district
     function change_plr_selection(d_id) {
         $("#select_plr").empty();
@@ -296,7 +313,8 @@ $(function () {
         var filter = JSON.parse(JSON.stringify(filter_preset));
         filter["table"] = ["planningareas"];
         filter["column"] = "plr_name"
-        filter["district_id"] = d_id;
+        if(d_id != 0)
+            filter["district_id"] = d_id;
         get_data_from_db(filter, populate_plr_selection);
     }
 
@@ -331,6 +349,7 @@ $(function () {
                 if (filter["print"]) {
                     show_data_in_table(result["data"]);
                     color_map(result["count"]);
+                    display_bike_theft_count(result["bike_theft_count"]);
                 } else {
                     callback(result["data"]);
                 }
@@ -338,6 +357,8 @@ $(function () {
                 console.log(result["data"]);
                 //data count
                 console.log(result["count"]);
+                //bike theft count
+                console.log(result["bike_theft_count"]);
             })
             .catch(error => {
                 console.error("Error:", error);
