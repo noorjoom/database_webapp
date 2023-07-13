@@ -25,6 +25,19 @@ $(function () {
         //change map
     });
 
+    //If a start Date gets selected
+    $("#set_start_date").change(function () {
+        //set min date of end date to this value
+        $("#set_end_date").attr("min", $(this).val());
+    });
+
+    //If an end Date gets selected
+    $("#set_end_date").change(function () {
+        //set max date of start date to this value
+        $("#set_start_date").attr("max", $(this).val());
+    });
+
+
     //click on district
     $("path").click(function () {
         $("#reset_map").attr("disabled", false);
@@ -56,22 +69,6 @@ $(function () {
             }
         }
     });
-
-
-    function map_select_district(d_id){
-        if(d_id == 0){
-            reset_map_selection();
-            return;
-        }
-        for (var i = 0; i < all_paths.length; i++) {
-            if (parseInt($(all_paths[i]).attr("data-bez")) == d_id) {
-                all_paths[i].style.opacity = 1;
-            } else {
-                all_paths[i].style.opacity = 0.4;
-            }
-        }
-        show_plr = true;
-    }
 
     //hover on district/map
     $("path").hover(function () {
@@ -227,6 +224,22 @@ $(function () {
         filter["min_dmg"] = $("#set_min_damage").val();
         filter["max_dmg"] = $("#set_max_damage").val();
         return filter;
+    }
+
+    //Change colored section on map
+    function map_select_district(d_id){
+        if(d_id == 0){
+            reset_map_selection();
+            return;
+        }
+        for (var i = 0; i < all_paths.length; i++) {
+            if (parseInt($(all_paths[i]).attr("data-bez")) == d_id) {
+                all_paths[i].style.opacity = 1;
+            } else {
+                all_paths[i].style.opacity = 0.4;
+            }
+        }
+        show_plr = true;
     }
 
     //Necessary if i use callback functions. Change the selected district in select

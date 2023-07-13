@@ -15,6 +15,7 @@ def hello():
 def handle_client_data():
     data = request.get_json()
     result = get_query(data)
+    print(result)
     return jsonify(result)
 
 def get_query(data):
@@ -51,16 +52,26 @@ def get_query(data):
         query_string += " AND plr_id = \'{}\'".format(data["plr_id"])
     if data["plr_name"] != "":
         query_string += " AND plr_name = \'{}\'".format(data["plr_name"])
-        """ A LOT OF BULLSHIT
+    #complicated filters
     if len(data["table"]) == 3:
-        if data["start_time"] != "" and data["end_time"] != "":
-            if data["start_time"] > data["end_time"]:
-                data["end_time"] += 24
-            query_string += " AND (((tatzeit_anfang_stunde <= {0} OR tatzeit_anfang_stunde <= {1}) AND (tatzeit_ende_stunde >= {0} OR tatzeit_ende_stunde >= {1})) ".format(data["start_time", "end_time"])
-            query_string += " OR ((tatzeit_anfang_stunde >= {0} AND tatzeit_ende_stunde <= {1})))".format(data["start_time"], data["end_time"])
-#todo: all other filter options...
-"""
-    #print(query_string)
+        start_d = "2022-01-01"
+        end_d = "2023-06-09"
+        if data["start_date"] != "" and data["end_date"] != "":
+            start_d = data["start_date"]
+            end_d = data["end_date"]
+        elif data["start_date"] != "":
+            start_d = data["start_date"]
+        elif data["end_date"] != "":
+            end_d = data["end_date"]
+        query_string += """ AND ((tatzeit_anfang_datum >= \'{0}\' AND tatzeit_anfang_datum <= \'{1}\') 
+                            OR (tatzeit_ende_datum >= \'{0}\' AND tatzeit_ende_datum <= \'{1}\') 
+                            OR (tatzeit_anfang_datum <= \'{0}\' AND tatzeit_ende_datum >= \'{1}\'))""".format(start_d, end_d)       
+        if data["min_dmg"] != "":
+            query_string += " AND schadenshoehe >= " + str(data["min_dmg"])
+        if data["max_dmg"] != "":
+            query_string += " AND schadenshoehe <= " + str(data["max_dmg"])
+
+    print(query_string)
 
     ret_json["data"] = get_data_from_db(query_data_head + query_string)
     if data["print"]:
