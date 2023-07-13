@@ -25,8 +25,17 @@ $(function () {
     });
 
     //wait for plr selection
-    $("#select_plr").change(function () {     
+    $("#select_plr").change(function () {
+        var index;     
         //change map
+        for(var i = 0; i < all_paths.length; i++){
+            if($(all_paths[i]).attr("data-plr_name") == $(this).val()){
+                alert($(this).val());
+                index = i;
+            }
+            $(all_paths[i]).stlye.opacity = 0.4;
+        }
+        
     });
 
     //If a start Date gets selected
