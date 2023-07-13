@@ -16,11 +16,12 @@ $(function () {
     $("#select_district").change(function () {
         //change plr options accordingly
         change_plr_selection($("#select_district").val());
-        //Todo: change map
+        //change map
+        map_select_district($("#select_district").val());
     });
 
     //wait for plr selection
-    $("#select_plr").change(function () {
+    $("#select_plr").change(function () {     
         //change map
     });
 
@@ -29,19 +30,10 @@ $(function () {
         $("#reset_map").attr("disabled", false);
         var bez = $(this).attr("data-bez");
         if (!show_plr) {
-
             //change element in "select_district"
             change_district_focus(parseInt(bez));
-
-            for (var i = 0; i < all_paths.length; i++) {
-                if ($(all_paths[i]).attr("data-bez") == bez) {
-                    all_paths[i].style.opacity = 1;
-                } else {
-                    all_paths[i].style.opacity = 0.4;
-                }
-            }
-            show_plr = true;
-        } else {
+            map_select_district(parseInt(bez));
+        } else {  
             if (parseInt(bez) == $("#select_district").val()) {
                 //change element in "select_plr"
                 $("#select_plr").val(($(this).attr("data-plr_name"))).change();
@@ -65,6 +57,22 @@ $(function () {
         }
     });
 
+
+    function map_select_district(d_id){
+        if(d_id == 0){
+            reset_map_selection();
+            return;
+        }
+        for (var i = 0; i < all_paths.length; i++) {
+            if (parseInt($(all_paths[i]).attr("data-bez")) == d_id) {
+                all_paths[i].style.opacity = 1;
+            } else {
+                all_paths[i].style.opacity = 0.4;
+            }
+        }
+        show_plr = true;
+    }
+
     //hover on district/map
     $("path").hover(function () {
         var bez = $(this).attr("data-bez");
@@ -76,7 +84,11 @@ $(function () {
             }
         } else {
             if (parseInt(bez) == $("#select_district").val()) {
-                this.style.opacity = 0.85;
+                if($("#select_plr").prop("selectedIndex") == 0){
+                    this.style.opacity = 0.85;
+                }else{
+                    this.style.opacity = 0.7;
+                }
             } else {
                 for (var i = 0; i < all_paths.length; i++) {
                     if ($(all_paths[i]).attr("data-bez") == bez) {
@@ -101,7 +113,7 @@ $(function () {
                     this.style.opacity = 1;
                 } else {
                     this.style.opacity = 0.85;
-                }
+                }               
             } else {
                 for (var i = 0; i < all_paths.length; i++) {
                     if ($(all_paths[i]).attr("data-bez") == bez) {
