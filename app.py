@@ -22,9 +22,9 @@ def get_query(data):
     #return both data and count
     ret_json = {}
     query_data_head = "SELECT {} from ".format(data["column"])
-    query_count_head = "SELECT COUNT(plr_id), plr_id from "
+    query_count_head = "SELECT COUNT(*) from "
     query_string = ""
-    query_count_tail = " GROUP BY plr_id"
+    query_count_tail = ""
     #JOIN TABLES IF NECESSARY
     if len(data["table"]) == 1:
         query_string += str(data["table"][0]) + " WHERE 1=1"
@@ -47,11 +47,11 @@ def get_query(data):
         else:
             query_string += " AND planningareas.bez = " + str(data["district_id"])
     if data["district_name"] != "":
-        query_string += " AND gemeinde_name = \'{}\'".format(data["district_name"])
+        query_string += " AND gemeinde_name = '{}'".format(data["district_name"])
     if data["plr_id"] != "":
-        query_string += " AND plr_id = \'{}\'".format(data["plr_id"])
+        query_string += " AND plr_id = '{}'".format(data["plr_id"])
     if data["plr_name"] != "":
-        query_string += " AND plr_name = \'{}\'".format(data["plr_name"])
+        query_string += " AND plr_name = '{}'".format(data["plr_name"])
     #complicated filters
     if len(data["table"]) == 3:
         start_d = "2022-01-01"
@@ -63,9 +63,9 @@ def get_query(data):
             start_d = data["start_date"]
         elif data["end_date"] != "":
             end_d = data["end_date"]
-        query_string += """ AND ((tatzeit_anfang_datum >= \'{0}\' AND tatzeit_anfang_datum <= \'{1}\') 
-                            OR (tatzeit_ende_datum >= \'{0}\' AND tatzeit_ende_datum <= \'{1}\') 
-                            OR (tatzeit_anfang_datum <= \'{0}\' AND tatzeit_ende_datum >= \'{1}\'))""".format(start_d, end_d)       
+        query_string += """ AND ((tatzeit_anfang_datum >= '{0}' AND tatzeit_anfang_datum <= '{1}') 
+                            OR (tatzeit_ende_datum >= '{0}' AND tatzeit_ende_datum <= '{1}') 
+                            OR (tatzeit_anfang_datum <= '{0}' AND tatzeit_ende_datum >= '{1}'))""".format(start_d, end_d)       
         if data["min_dmg"] != "":
             query_string += " AND schadenshoehe >= " + str(data["min_dmg"])
         if data["max_dmg"] != "":
@@ -76,12 +76,17 @@ def get_query(data):
     ret_json["data"] = get_data_from_db(query_data_head + query_string)
     if data["print"]:
         ret_json["count"] = get_data_from_db(query_count_head + query_string + query_count_tail)
-    else:
-        ret_json["count"] = 0
+
+    # Add count of bike thefts if requested
+    if "count_bike_thefts" in data and data["count_bike_thefts"]:
+        bike_theft_count_query = "SELECT COUNT(*) FROM " + query_string
+        ret_json["bike_theft_count"] = get_data_from_db(bike_theft_count_query)
 
     return ret_json
 
+
 def get_data_from_db(query):
+    ret_data = []
     conn = None
     try:
         params = config()

@@ -252,6 +252,7 @@ $(function () {
         filter["end_time"] = $("#set_end_time").val();
         filter["min_dmg"] = $("#set_min_damage").val();
         filter["max_dmg"] = $("#set_max_damage").val();
+        filter["count_bike_thefts"] = true; //Added for count
         return filter;
     }
 
@@ -285,6 +286,10 @@ $(function () {
             all_paths[i].style.fill = "#000";
         }
         show_plr = false;
+    }
+
+    function display_bike_theft_count(count) {
+        document.getElementById('bike-theft-count').textContent = 'Count of bike thefts: ' + count;
     }
 
     //Get the valuesfor the plr select accoring to set district
@@ -329,6 +334,7 @@ $(function () {
                 if (filter["print"]) {
                     show_data_in_table(result["data"]);
                     color_map(result["count"]);
+                    display_bike_theft_count(result["bike_theft_count"]);
                 } else {
                     callback(result["data"]);
                 }
@@ -336,6 +342,8 @@ $(function () {
                 console.log(result["data"]);
                 //data count
                 console.log(result["count"]);
+                //bike theft count
+                console.log(result["bike_theft_count"]);
             })
             .catch(error => {
                 console.error("Error:", error);
