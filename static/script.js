@@ -6,6 +6,8 @@ $.fn.isValid = function(){
     return this[0].checkValidity()
 };
 
+
+
 $(function () {
     var all_paths = $("path");
     var show_plr = false;
