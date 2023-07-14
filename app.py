@@ -22,9 +22,9 @@ def get_query(data):
     #return both data and count
     ret_json = {}
     query_data_head = "SELECT {} from ".format(data["column"])
-    query_count_head = "SELECT COUNT(*) from "
+    query_count_head = "SELECT COUNT(*), plr_id from "
     query_string = ""
-    query_count_tail = ""
+    query_count_tail = " GROUP BY plr_id"
     #JOIN TABLES IF NECESSARY
     if len(data["table"]) == 1:
         query_string += str(data["table"][0]) + " WHERE 1=1"
