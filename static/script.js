@@ -24,6 +24,7 @@ $(function () {
         change_plr_selection($("#select_district").val());
         //change map
         map_select_district($("#select_district").val());
+        $("#reset_map").attr("disabled", false);
     });
 
     //wait for plr selection
@@ -32,11 +33,19 @@ $(function () {
         //change map
         for(var i = 0; i < all_paths.length; i++){
             if($(all_paths[i]).attr("data-plr_name") == $(this).val()){
-                alert($(this).val());
                 index = i;
             }
-            $(all_paths[i]).stlye.opacity = 0.4;
+            all_paths[i].style.opacity = 0.4;
         }
+        $("#select_district").val(parseInt($(all_paths[index]).attr("data-bez")));
+        for(var i = 0; i < all_paths.length; i++){
+            if($(all_paths[i]).attr("data-bez") == $(all_paths[index]).attr("data-bez")){
+                all_paths[i].style.opacity = 0.85;
+            }
+        }
+        all_paths[index].style.opacity = 1;
+        show_plr = true;
+        $("#reset_map").attr("disabled", false);
     });
 
     //If a start Date gets selected
@@ -215,6 +224,7 @@ $(function () {
     //Color the map after getting Count data from the server
     //Only colors the selected district. Remaining districts/plr low visibility
     function color_map(count) {
+        var index;
         //enable map reset button
         $("#reset_map").attr("disabled", false);
         color_scale = ["#b2d8d8", "#66b2b2", "#008080", "#006666", "#004c4c"];
@@ -223,6 +233,7 @@ $(function () {
             for (var j = 0; j < count.length; j++) {
                 //If data available for the plr
                 if (count[j][1] == plr_id) {
+                    index = i;
                     color_index = 0;
                     //Color steps for the map
                     if (count[j][0] > 180) {
@@ -246,7 +257,16 @@ $(function () {
                     all_paths[i].style.fill = "#000";
                     all_paths[i].style.opacity = 0.4;
                 }
+            } 
+        }
+        if(count.length == 1){
+            var bez = $(all_paths[index]).attr("data-bez");
+            for(var i = 0; i < all_paths.length; i++){
+                if($(all_paths[i]).attr("data-bez") == bez){
+                    all_paths[i].style.opacity = 0.85;
+                }
             }
+            all_paths[index].style.opacity = 1;
         }
     }
 
