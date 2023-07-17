@@ -1,3 +1,4 @@
+/*body: used to style the main page */
 body {
     background-color: #4888a1;
     font-family: 'Kanit', sans-serif;
@@ -24,12 +25,13 @@ body {
     font-size: 20px;
   }
 
+  /* th and tr: used to style table*/
   th {
     background-color: #1a346b;
     color: white;
   }
 
-  tr:hover {background-color: coral;}
+  tr:hover {background-color: rgb(242, 242, 242);}
 
   .center {
     margin-left: auto;
@@ -45,10 +47,11 @@ body {
   }
 */
 
+/*button: used to style modern button, lot of functionality*/
 .button{
   background-color: #000000;
   border-radius: 100px;
-  box-shadow: rgba(54, 7, 222, 0.2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  box-shadow: rgba(54, 7, 222, 0.2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,#2cbb6326 0 16px 32px;
   color: rgb(255, 255, 255);
   cursor: pointer;
   display: inline-block;
@@ -65,18 +68,16 @@ body {
 }
 
 .button:hover {
-  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  box-shadow: #2cbb6326 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
 }
 
 
+/*svg-container: used to center the svg*/
 .svg-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Adjust this value to fit your layout */
+  height: 100vh; 
 }
 
-#pagination button.active {
-  font-weight: bold;
-}
