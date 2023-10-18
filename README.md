@@ -1,6 +1,6 @@
 # Database_WebApp
-## Final project for Database systems 
-## By Arved Becker, Noor Joomratty, Teoman Köse, Darren Igbinedion
+Final project for Database systems 
+By Arved Becker, Noor Joomratty, Teoman Köse, Darren Igbinedion
 
 ## READ THIS TO USE
 
